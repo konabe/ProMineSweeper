@@ -1,6 +1,30 @@
 package com.example.minesweeper.core;
 
+enum CellViewType {
+    COVERED,
+    FLAG,
+    MINE,
+    ZERO,
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT,
+}
+
 public class Cell {
+
+    private boolean _isOpen;
+    private CellItem _item;
+
+    Cell(CellItem item) {
+        _item = item;
+        _isOpen = false;
+    }
+
     public boolean isOpen() {
         return _isOpen;
     }
@@ -9,10 +33,35 @@ public class Cell {
         _isOpen = true;
     }
 
-    private boolean _isOpen;
-
-    Cell() {
-        _isOpen = false;
+    public CellViewType getCellViewType() {
+        if (!_isOpen) {
+            return CellViewType.COVERED;
+        } else {
+            int value = _item.getValue();
+            switch (value) {
+                case -1:
+                    return CellViewType.MINE;
+                case 0:
+                    return CellViewType.ZERO;
+                case 1:
+                    return CellViewType.ONE;
+                case 2:
+                    return CellViewType.TWO;
+                case 3:
+                    return CellViewType.THREE;
+                case 4:
+                    return CellViewType.FOUR;
+                case 5:
+                    return CellViewType.FIVE;
+                case 6:
+                    return CellViewType.SIX;
+                case 7:
+                    return CellViewType.SEVEN;
+                case 8:
+                    return CellViewType.EIGHT;
+                default:
+                    throw new RuntimeException();
+            }
+        }
     }
-
 }
