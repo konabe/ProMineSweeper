@@ -6,7 +6,7 @@ public class CellBoard {
     private int _width;
     private int _height;
     private final ICellShufflable _shuffler;
-    private ArrayList<Cell> _cellsMatrix;
+    private RectRepresentableArrayList<Cell> _cellsMatrix;
 
     CellBoard(MineSweeperConfig config, ICellShufflable shuffler) {
         _shuffler = shuffler;
@@ -16,18 +16,8 @@ public class CellBoard {
     }
 
     public Cell getCell(Coordinate coordinate) {
-        if (!coordinate.isValid(_width, _height)) {
-            return null;
-        }
-        int index = getIndex(coordinate);
-        if (!(0 <= index && index <= _cellsMatrix.size() - 1)) {
-            return null;
-        }
-        return _cellsMatrix.get(index).clone();
-    }
-
-    private int getIndex(Coordinate coordinate) {
-        return _width * coordinate.y + coordinate.x;
+        var cell = _cellsMatrix.get(coordinate);
+        return cell != null ? cell.clone() : null;
     }
 
     private Coordinate getCoordinate(int index) {
@@ -35,7 +25,7 @@ public class CellBoard {
     }
 
     private void initialize(int width, int height, int bomb) {
-        _cellsMatrix = new ArrayList<>();
+        _cellsMatrix = new RectRepresentableArrayList<>(width, height);
         for(var isBomb: _shuffler.generateBombMap(width * height, bomb)) {
             var cell = isBomb ? new Cell(new CellItem(-1)): new Cell(new CellItem(0));
             _cellsMatrix.add(cell);

@@ -26,6 +26,14 @@ class MiniShuffler implements ICellShufflable {
 
 public class CellBoardTest {
     @Test
+    public void test_getCell() {
+        var config = new MineSweeperConfig(4, 4, 4);
+        var shuffler = new MiniShuffler();
+        var board = new CellBoard(config, shuffler);
+        assertEquals(new Cell(new CellItem(-1)), board.getCell(new Coordinate(0, 0)));
+    }
+
+    @Test
     public void test_initialize() {
         var config = new MineSweeperConfig(4, 4, 4);
         var shuffler = new MiniShuffler();
@@ -46,5 +54,6 @@ public class CellBoardTest {
         assertEquals(board.getCell(new Coordinate(1, 3)), new Cell(new CellItem((2))));
         assertEquals(board.getCell(new Coordinate(2, 3)), new Cell(new CellItem((1))));
         assertEquals(board.getCell(new Coordinate(3, 3)), new Cell(new CellItem((0))));
+        assertEquals(1, shuffler.generateBombMapCallCount);
     }
 }

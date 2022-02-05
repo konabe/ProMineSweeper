@@ -1,22 +1,5 @@
 package com.example.minesweeper.core;
 
-import java.util.Objects;
-
-enum CellViewType {
-    COVERED,
-    FLAG,
-    MINE,
-    ZERO,
-    ONE,
-    TWO,
-    THREE,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN,
-    EIGHT,
-}
-
 public class Cell implements Cloneable {
 
     private boolean _isOpen;
@@ -45,7 +28,6 @@ public class Cell implements Cloneable {
         if (o == null || getClass() != o.getClass()) return false;
 
         Cell cell = (Cell) o;
-
         if (_isOpen != cell._isOpen) return false;
         return _item.equals(cell._item);
     }
