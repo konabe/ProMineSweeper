@@ -36,4 +36,13 @@ class CellTest {
         cellMine.open();
         assertEquals(CellViewType.MINE, cellMine.getCellViewType());
     }
+
+    @Test
+    public void test_getCellViewType_error() {
+        var cellError = new Cell(new CellItem(666));
+        // TODO: ここはスローされるべきな気がする。
+        assertDoesNotThrow(() -> cellError.getCellViewType());
+        cellError.open();
+        assertThrows(RuntimeException.class, () -> cellError.getCellViewType());
+    }
 }

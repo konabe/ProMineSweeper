@@ -1,5 +1,7 @@
 package com.example.minesweeper.core;
 
+import java.util.Objects;
+
 enum CellViewType {
     COVERED,
     FLAG,
@@ -15,7 +17,7 @@ enum CellViewType {
     EIGHT,
 }
 
-public class Cell {
+public class Cell implements Cloneable {
 
     private boolean _isOpen;
     private CellItem _item;
@@ -23,6 +25,29 @@ public class Cell {
     Cell(CellItem item) {
         _item = item;
         _isOpen = false;
+    }
+
+    @Override
+    protected Cell clone() {
+        Cell obj = null;
+        try {
+            obj = (Cell)super.clone();
+            obj._item = this._item.clone();
+        } catch (CloneNotSupportedException e) {
+            e.getStackTrace();
+        }
+        return obj;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cell cell = (Cell) o;
+
+        if (_isOpen != cell._isOpen) return false;
+        return _item.equals(cell._item);
     }
 
     public boolean isOpen() {
