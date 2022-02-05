@@ -8,11 +8,11 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class MiniShuffler implements ICellShufflable {
-    int generateBombMapCallCount = 0;
+class MockBombMapper implements IBombMapper {
+    int generateCallCount = 0;
     @Override
-    public ArrayList<Boolean> generateBombMap(int size, int bomb) {
-        generateBombMapCallCount++;
+    public ArrayList<Boolean> generate(int size, int bomb) {
+        generateCallCount++;
         assert size == 16;
         assert bomb == 4;
         return new ArrayList<>(Arrays.asList(
@@ -28,16 +28,16 @@ public class CellBoardTest {
     @Test
     public void test_getCell() {
         var config = new MineSweeperConfig(4, 4, 4);
-        var shuffler = new MiniShuffler();
-        var board = new CellBoard(config, shuffler);
+        var bombMapper = new MockBombMapper();
+        var board = new CellBoard(config, bombMapper);
         assertEquals(new Cell(new CellItem(-1)), board.getCell(new Coordinate(0, 0)));
     }
 
     @Test
     public void test_initialize() {
         var config = new MineSweeperConfig(4, 4, 4);
-        var shuffler = new MiniShuffler();
-        var board = new CellBoard(config, shuffler);
+        var bombMapper = new MockBombMapper();
+        var board = new CellBoard(config, bombMapper);
         assertEquals(board.getCell(new Coordinate(0, 0)), new Cell(new CellItem((-1))));
         assertEquals(board.getCell(new Coordinate(1, 0)), new Cell(new CellItem((1))));
         assertEquals(board.getCell(new Coordinate(2, 0)), new Cell(new CellItem((1))));
@@ -54,6 +54,6 @@ public class CellBoardTest {
         assertEquals(board.getCell(new Coordinate(1, 3)), new Cell(new CellItem((2))));
         assertEquals(board.getCell(new Coordinate(2, 3)), new Cell(new CellItem((1))));
         assertEquals(board.getCell(new Coordinate(3, 3)), new Cell(new CellItem((0))));
-        assertEquals(1, shuffler.generateBombMapCallCount);
+        assertEquals(1, bombMapper.generateCallCount);
     }
 }

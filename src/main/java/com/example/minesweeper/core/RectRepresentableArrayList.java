@@ -26,4 +26,8 @@ public class RectRepresentableArrayList<T> extends ArrayList<T> {
     private int getIndex(Coordinate coordinate) {
         return _width * coordinate.y + coordinate.x;
     }
+
+    public Coordinate getCoordinate(int index) {
+        return new Coordinate(index % _width, index / _width);
+    }
 }
