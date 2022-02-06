@@ -1,6 +1,5 @@
 package com.example.minesweeper.core;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -61,15 +60,15 @@ public class CellBoardTest {
     }
 
     @Test
-    public void test_open() {
-        board.open(new Coordinate(0, 0));
+    public void test_uncover() {
+        board.uncover(new Coordinate(0, 0));
         var cell = board.getCell(new Coordinate(0, 0));
         assertTrue(cell.isOpen());
     }
 
     @Test
-    public void test_open_recursively_1() {
-        board.open(new Coordinate(3, 2));
+    public void test_uncover_recursively_1() {
+        board.uncover(new Coordinate(3, 2));
         assertTrue(board.getCell(new Coordinate(2, 1)).isOpen());
         assertTrue(board.getCell(new Coordinate(3, 1)).isOpen());
         assertTrue(board.getCell(new Coordinate(2, 2)).isOpen());
@@ -90,8 +89,8 @@ public class CellBoardTest {
     }
 
     @Test
-    public void test_open_recursively_2() {
-        board.open(new Coordinate(3, 3));
+    public void test_uncover_recursively_2() {
+        board.uncover(new Coordinate(3, 3));
         assertTrue(board.getCell(new Coordinate(2, 1)).isOpen());
         assertTrue(board.getCell(new Coordinate(3, 1)).isOpen());
         assertTrue(board.getCell(new Coordinate(2, 2)).isOpen());

@@ -4,9 +4,17 @@ public class CellBoard {
     private final IBombMapper _bombMapper;
     private RectRepresentableArrayList<Cell> _cellsMatrix;
 
-    CellBoard(MineSweeperConfig config, IBombMapper bombMapper) {
+    public CellBoard(MineSweeperConfig config, IBombMapper bombMapper) {
         _bombMapper = bombMapper;
         initialize(config.width, config.height, config.bomb);
+    }
+
+    public int getWidth() {
+        return _cellsMatrix.getWidth();
+    }
+
+    public int getHeight() {
+        return _cellsMatrix.getHeight();
     }
 
     public Cell getCell(Coordinate coordinate) {
@@ -14,25 +22,24 @@ public class CellBoard {
         return cell != null ? cell.clone() : null;
     }
 
-    public void open(Coordinate coordinate) {
+    public void uncover(Coordinate coordinate) {
         var cell = _cellsMatrix.get(coordinate);
         if (cell == null) {
             return;
         }
         if (cell.equals(new Cell(new CellItem(0)))) {
-            cell.open();
+            openCell(coordinate);
             var surroundingCell = new SurroundingCell(this, coordinate);
             var coordinatesNextTo = surroundingCell.getCoordinates();
-            coordinatesNextTo.forEach(c -> open(c));
+            coordinatesNextTo.forEach(this::uncover);
             return;
         }
         if (cell.isOpen() && !cell.equals(new Cell(new CellItem(0)))) {
             return;
         }
         if (!cell.isOpen()) {
-            cell.open();
-            open(coordinate);
-            return;
+            openCell(coordinate);
+            uncover(coordinate);
         }
     }
 
@@ -49,6 +56,11 @@ public class CellBoard {
                 _cellsMatrix.set(i, new Cell(new CellItem(surroundingCell.getBombAmount())));
             }
         }
+    }
+
+    private void openCell(Coordinate coordinate) {
+        var cell = _cellsMatrix.get(coordinate);
+        cell.open();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.example.minesweeper.core;
 
-enum CellViewType {
+public enum CellViewType {
     COVERED,
     FLAG,
     MINE,

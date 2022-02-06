@@ -12,6 +12,14 @@ public class RectRepresentableArrayList<T> extends ArrayList<T> {
         _height = height;
     }
 
+    public int getWidth() {
+        return _width;
+    }
+
+    public int getHeight() {
+        return _height;
+    }
+
     public T get(Coordinate coordinate) {
         if (!coordinate.isValid(_width, _height)) {
             return null;
