@@ -1,21 +1,39 @@
 package com.example.minesweeper.core;
 
 public class CellBoard {
-    private int _width;
-    private int _height;
     private final IBombMapper _bombMapper;
     private RectRepresentableArrayList<Cell> _cellsMatrix;
 
     CellBoard(MineSweeperConfig config, IBombMapper bombMapper) {
         _bombMapper = bombMapper;
-        _width = config.width;
-        _height = config.height;
         initialize(config.width, config.height, config.bomb);
     }
 
     public Cell getCell(Coordinate coordinate) {
         var cell = _cellsMatrix.get(coordinate);
         return cell != null ? cell.clone() : null;
+    }
+
+    public void open(Coordinate coordinate) {
+        var cell = _cellsMatrix.get(coordinate);
+        if (cell == null) {
+            return;
+        }
+        if (cell.equals(new Cell(new CellItem(0)))) {
+            cell.open();
+            var surroundingCell = new SurroundingCell(this, coordinate);
+            var coordinatesNextTo = surroundingCell.getCoordinates();
+            coordinatesNextTo.forEach(c -> open(c));
+            return;
+        }
+        if (cell.isOpen() && !cell.equals(new Cell(new CellItem(0)))) {
+            return;
+        }
+        if (!cell.isOpen()) {
+            cell.open();
+            open(coordinate);
+            return;
+        }
     }
 
     private void initialize(int width, int height, int bomb) {

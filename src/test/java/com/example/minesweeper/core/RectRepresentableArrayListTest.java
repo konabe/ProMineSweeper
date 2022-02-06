@@ -8,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RectRepresentableArrayListTest {
     @Test
-    void test() {
+    public void test() {
         int width = 3;
         int height = 4;
-        var list = new RectRepresentableArrayList<Integer>(3, 4);
+        var list = new RectRepresentableArrayList<Integer>(width, height);
         list.addAll(Arrays.asList(
                 1, 2, 3,
                 4, 5, 6,
@@ -30,5 +30,15 @@ public class RectRepresentableArrayListTest {
         assertEquals(10, list.get(new Coordinate(0, 3)));
         assertEquals(11, list.get(new Coordinate(1, 3)));
         assertEquals(12, list.get(new Coordinate(2, 3)));
+    }
+
+    @Test
+    public void test_getCoordinate() {
+        int width = 3;
+        int height = 4;
+        var list = new RectRepresentableArrayList<Integer>(width, height);
+        var coordinate = list.getCoordinate(4);
+        assertEquals(1, coordinate.x);
+        assertEquals(1, coordinate.y);
     }
 }
