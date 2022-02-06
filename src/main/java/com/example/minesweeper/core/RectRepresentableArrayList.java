@@ -20,22 +20,22 @@ public class RectRepresentableArrayList<T> extends ArrayList<T> {
         return _height;
     }
 
-    public T get(Coordinate coordinate) {
-        if (!coordinate.isValid(_width, _height)) {
+    public T get(Pos pos) {
+        if (!pos.isValid(_width, _height)) {
             return null;
         }
-        var index = getIndex(coordinate);
+        var index = getIndex(pos);
         if (!(0 <= index && index <= size() - 1)) {
             return null;
         }
         return super.get(index);
     }
 
-    private int getIndex(Coordinate coordinate) {
-        return _width * coordinate.y + coordinate.x;
+    public Pos getPos(int index) {
+        return new Pos(index % _width, index / _width);
     }
 
-    public Coordinate getCoordinate(int index) {
-        return new Coordinate(index % _width, index / _width);
+    private int getIndex(Pos pos) {
+        return _width * pos.y() + pos.x();
     }
 }

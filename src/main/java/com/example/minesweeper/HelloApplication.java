@@ -4,7 +4,6 @@ import com.example.minesweeper.core.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -26,7 +25,7 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(node, 1200, 800);
         gridPane = new GridPane();
         gridPane.setPadding(new Insets(0, 0, 0, 0));
-        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setAlignment(javafx.geometry.Pos.CENTER);
         gridPane.setVgap(0);
         gridPane.setHgap(0);
         buttons = new Button[board.getWidth()][board.getHeight()];
@@ -55,7 +54,7 @@ public class HelloApplication extends Application {
     }
 
     private void cellClicked(int x, int y) {
-        board.uncover(new Coordinate(x, y));
+        board.uncover(new Pos(x, y));
         updateCells();
     }
 
@@ -79,7 +78,7 @@ public class HelloApplication extends Application {
     private void updateCells() {
         for (int i = 0; i < board.getWidth(); i++) {
             for (int j = 0; j < board.getHeight(); j++) {
-                var cell = board.getCell(new Coordinate(i, j));
+                var cell = board.getCell(new Pos(i, j));
                 buttons[i][j].setText(getText(cell.getCellViewType()));
             }
         }

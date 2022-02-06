@@ -17,12 +17,12 @@ public class CellBoard {
         return _cellsMatrix.getHeight();
     }
 
-    public Cell getCell(Coordinate coordinate) {
+    public Cell getCell(Pos coordinate) {
         var cell = _cellsMatrix.get(coordinate);
         return cell != null ? cell.clone() : null;
     }
 
-    public void uncover(Coordinate coordinate) {
+    public void uncover(Pos coordinate) {
         var cell = _cellsMatrix.get(coordinate);
         if (cell == null) {
             return;
@@ -51,14 +51,14 @@ public class CellBoard {
         }
         for(var i = 0; i < _cellsMatrix.size(); i++) {
             var cell = _cellsMatrix.get(i);
-            var surroundingCell = new SurroundingCell(this, _cellsMatrix.getCoordinate(i));
+            var surroundingCell = new SurroundingCell(this, _cellsMatrix.getPos(i));
             if (cell.equals(new Cell(new CellItem(0)))) {
                 _cellsMatrix.set(i, new Cell(new CellItem(surroundingCell.getBombAmount())));
             }
         }
     }
 
-    private void openCell(Coordinate coordinate) {
+    private void openCell(Pos coordinate) {
         var cell = _cellsMatrix.get(coordinate);
         cell.open();
     }

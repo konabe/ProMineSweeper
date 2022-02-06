@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class SurroundingCell {
     private final ArrayList<Cell> _array;
-    private final Coordinate _centerCoordinate;
+    private final Pos _centerPos;
 
-    SurroundingCell(CellBoard board, Coordinate coordinate) {
-        _centerCoordinate = coordinate.clone();
+    SurroundingCell(CellBoard board, Pos pos) {
+        _centerPos = pos;
         _array = new ArrayList<>();
         getCoordinates().forEach(c -> _array.add(board.getCell(c)));
     }
@@ -20,18 +20,18 @@ public class SurroundingCell {
                 .count();
     }
 
-    public ArrayList<Coordinate> getCoordinates() {
-        var x = _centerCoordinate.x;
-        var y = _centerCoordinate.y;
-        var result = new ArrayList<Coordinate>(8);
-        result.add(new Coordinate(x - 1, y - 1));
-        result.add(new Coordinate(x, y - 1));
-        result.add(new Coordinate(x + 1, y - 1));
-        result.add(new Coordinate(x - 1, y));
-        result.add(new Coordinate(x + 1, y));
-        result.add(new Coordinate(x - 1, y + 1));
-        result.add(new Coordinate(x, y + 1));
-        result.add(new Coordinate(x + 1, y + 1));
+    public ArrayList<Pos> getCoordinates() {
+        var x = _centerPos.x();
+        var y = _centerPos.y();
+        var result = new ArrayList<Pos>(8);
+        result.add(new Pos(x - 1, y - 1));
+        result.add(new Pos(x, y - 1));
+        result.add(new Pos(x + 1, y - 1));
+        result.add(new Pos(x - 1, y));
+        result.add(new Pos(x + 1, y));
+        result.add(new Pos(x - 1, y + 1));
+        result.add(new Pos(x, y + 1));
+        result.add(new Pos(x + 1, y + 1));
         return result;
     }
 
