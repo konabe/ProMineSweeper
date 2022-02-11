@@ -2,11 +2,13 @@ package com.example.minesweeper.core.cell;
 
 public class Cell implements Cloneable {
     private boolean _isOpen;
+    private boolean _isFlag;
     private CellItem _item;
 
     private Cell(CellItem item) {
         _item = item;
         _isOpen = false;
+        _isFlag = false;
     }
 
     public static Cell createBomb() {
@@ -32,12 +34,22 @@ public class Cell implements Cloneable {
         _isOpen = true;
     }
 
+    public boolean isFlag() { return _isFlag; }
+
+    public void raiseFlag() {
+        _isFlag = true;
+    }
+
+    public void dropFlag() { _isFlag = false; }
+
     public CellViewType getCellViewType() {
-        if (!_isOpen) {
-            return CellViewType.COVERED;
-        } else {
+        if (_isOpen) {
             return _item.getCellViewType();
         }
+        if (_isFlag) {
+            return CellViewType.FLAG;
+        }
+        return CellViewType.COVERED;
     }
 
     @Override

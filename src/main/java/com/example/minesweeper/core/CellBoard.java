@@ -24,14 +24,13 @@ public class CellBoard {
         return cell != null ? cell.clone() : null;
     }
 
-    public void uncover(Pos coordinate) {
-        var cell = _cellsMatrix.get(coordinate);
-        if (cell == null) {
-            return;
-        }
+    public void uncover(Pos pos) {
+        var cell = _cellsMatrix.get(pos);
+        if (cell == null) return;
+        if (cell.isFlag()) return;
         if (cell.equals(Cell.createLand())) {
-            openCell(coordinate);
-            var surroundingCell = new SurroundingCell(this, coordinate);
+            openCell(pos);
+            var surroundingCell = new SurroundingCell(this, pos);
             var coordinatesNextTo = surroundingCell.getCoordinates();
             coordinatesNextTo.forEach(this::uncover);
             return;
@@ -40,8 +39,18 @@ public class CellBoard {
             return;
         }
         if (!cell.isOpen()) {
-            openCell(coordinate);
-            uncover(coordinate);
+            openCell(pos);
+            uncover(pos);
+        }
+    }
+
+    public void toggleFlag(Pos pos) {
+        var cell = _cellsMatrix.get(pos);
+        if (cell == null) return;
+        if (cell.isFlag()) {
+            cell.dropFlag();
+        } else {
+            cell.raiseFlag();
         }
     }
 

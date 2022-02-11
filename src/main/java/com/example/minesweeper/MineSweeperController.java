@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
@@ -43,6 +44,11 @@ public class MineSweeperController implements Initializable {
                 button.setOnAction(event -> {
                     cellClicked(finalI, finalJ);
                 });
+                button.setOnMouseClicked(event -> {
+                    if (event.getButton() == MouseButton.SECONDARY) {
+                        cellRightClicked(finalI, finalJ);
+                    }
+                });
                 buttons[i][j] = button;
                 cellBoardPane.add(button, i, j);
             }
@@ -54,9 +60,15 @@ public class MineSweeperController implements Initializable {
         updateCells();
     }
 
+    private void cellRightClicked(int x, int y) {
+        cellBoard.toggleFlag(new Pos(x, y));
+        updateCells();
+    }
+
     private ImageView getImageView(CellViewType type) {
         var imagePath = switch (type) {
             case COVERED -> null;
+            case FLAG -> "img/kinzoku_tanchiki.png";
             case MINE -> "img/war_jirai.png";
             case ZERO -> null;
             case ONE -> "img/number_1.png";
@@ -88,7 +100,11 @@ public class MineSweeperController implements Initializable {
                     }
                     continue;
                 }
-                button.getStyleClass().addAll(Arrays.asList("cell", "white"));
+                if (cell.getCellViewType() == CellViewType.FLAG) {
+                    button.getStyleClass().addAll(Arrays.asList("cell", "covered"));
+                } else {
+                    button.getStyleClass().addAll(Arrays.asList("cell", "white"));
+                }
                 button.setGraphic(imageView);
                 button.setContentDisplay(ContentDisplay.CENTER);
                 imageView.fitWidthProperty().bind(button.widthProperty().divide(1.25));
