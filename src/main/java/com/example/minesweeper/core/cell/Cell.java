@@ -1,12 +1,27 @@
-package com.example.minesweeper.core;
+package com.example.minesweeper.core.cell;
 
 public class Cell implements Cloneable {
     private boolean _isOpen;
     private CellItem _item;
 
-    Cell(CellItem item) {
+    private Cell(CellItem item) {
         _item = item;
         _isOpen = false;
+    }
+
+    public static Cell createBomb() {
+        return new Cell(new CellItem(-1));
+    }
+
+    public static Cell createLand() {
+        return createLand(0);
+    }
+
+    public static Cell createLand(int number) {
+        if (number < 0 || number > 8) {
+            return null;
+        }
+        return new Cell(new CellItem(number));
     }
 
     public boolean isOpen() {
@@ -21,31 +36,7 @@ public class Cell implements Cloneable {
         if (!_isOpen) {
             return CellViewType.COVERED;
         } else {
-            int value = _item.getValue();
-            switch (value) {
-                case -1:
-                    return CellViewType.MINE;
-                case 0:
-                    return CellViewType.ZERO;
-                case 1:
-                    return CellViewType.ONE;
-                case 2:
-                    return CellViewType.TWO;
-                case 3:
-                    return CellViewType.THREE;
-                case 4:
-                    return CellViewType.FOUR;
-                case 5:
-                    return CellViewType.FIVE;
-                case 6:
-                    return CellViewType.SIX;
-                case 7:
-                    return CellViewType.SEVEN;
-                case 8:
-                    return CellViewType.EIGHT;
-                default:
-                    throw new RuntimeException();
-            }
+            return _item.getCellViewType();
         }
     }
 
@@ -63,7 +54,7 @@ public class Cell implements Cloneable {
     Cloneable
      */
     @Override
-    protected Cell clone() {
+    public Cell clone() {
         Cell obj = null;
         try {
             obj = (Cell)super.clone();

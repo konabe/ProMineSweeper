@@ -1,6 +1,7 @@
 package com.example.minesweeper;
 
 import com.example.minesweeper.core.*;
+import com.example.minesweeper.core.cell.CellViewType;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;

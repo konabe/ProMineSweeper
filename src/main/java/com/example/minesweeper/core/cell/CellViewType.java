@@ -1,4 +1,4 @@
-package com.example.minesweeper.core;
+package com.example.minesweeper.core.cell;
 
 public enum CellViewType {
     COVERED,

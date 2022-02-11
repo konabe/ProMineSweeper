@@ -1,5 +1,6 @@
 package com.example.minesweeper.core;
 
+import com.example.minesweeper.core.cell.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,27 +37,27 @@ public class CellBoardTest {
 
     @Test
     public void test_getCell() {
-        assertEquals(new Cell(new CellItem(-1)), sampleBoard1.getCell(new Pos(0, 0)));
+        assertEquals(Cell.createBomb(), sampleBoard1.getCell(new Pos(0, 0)));
     }
 
     @Test
     public void test_initialize() {
-        assertEquals(sampleBoard1.getCell(new Pos(0, 0)), new Cell(new CellItem((-1))));
-        assertEquals(sampleBoard1.getCell(new Pos(1, 0)), new Cell(new CellItem((1))));
-        assertEquals(sampleBoard1.getCell(new Pos(2, 0)), new Cell(new CellItem((1))));
-        assertEquals(sampleBoard1.getCell(new Pos(3, 0)), new Cell(new CellItem((-1))));
-        assertEquals(sampleBoard1.getCell(new Pos(0, 1)), new Cell(new CellItem((3))));
-        assertEquals(sampleBoard1.getCell(new Pos(1, 1)), new Cell(new CellItem((3))));
-        assertEquals(sampleBoard1.getCell(new Pos(2, 1)), new Cell(new CellItem((2))));
-        assertEquals(sampleBoard1.getCell(new Pos(3, 1)), new Cell(new CellItem((1))));
-        assertEquals(sampleBoard1.getCell(new Pos(0, 2)), new Cell(new CellItem((-1))));
-        assertEquals(sampleBoard1.getCell(new Pos(1, 2)), new Cell(new CellItem((-1))));
-        assertEquals(sampleBoard1.getCell(new Pos(2, 2)), new Cell(new CellItem((1))));
-        assertEquals(sampleBoard1.getCell(new Pos(3, 2)), new Cell(new CellItem((0))));
-        assertEquals(sampleBoard1.getCell(new Pos(0, 3)), new Cell(new CellItem((2))));
-        assertEquals(sampleBoard1.getCell(new Pos(1, 3)), new Cell(new CellItem((2))));
-        assertEquals(sampleBoard1.getCell(new Pos(2, 3)), new Cell(new CellItem((1))));
-        assertEquals(sampleBoard1.getCell(new Pos(3, 3)), new Cell(new CellItem((0))));
+        assertEquals(sampleBoard1.getCell(new Pos(0, 0)), Cell.createBomb());
+        assertEquals(sampleBoard1.getCell(new Pos(1, 0)), Cell.createLand(1));
+        assertEquals(sampleBoard1.getCell(new Pos(2, 0)), Cell.createLand(1));
+        assertEquals(sampleBoard1.getCell(new Pos(3, 0)), Cell.createBomb());
+        assertEquals(sampleBoard1.getCell(new Pos(0, 1)), Cell.createLand(3));
+        assertEquals(sampleBoard1.getCell(new Pos(1, 1)), Cell.createLand(3));
+        assertEquals(sampleBoard1.getCell(new Pos(2, 1)), Cell.createLand(2));
+        assertEquals(sampleBoard1.getCell(new Pos(3, 1)), Cell.createLand(1));
+        assertEquals(sampleBoard1.getCell(new Pos(0, 2)), Cell.createBomb());
+        assertEquals(sampleBoard1.getCell(new Pos(1, 2)), Cell.createBomb());
+        assertEquals(sampleBoard1.getCell(new Pos(2, 2)), Cell.createLand(1));
+        assertEquals(sampleBoard1.getCell(new Pos(3, 2)), Cell.createLand(0));
+        assertEquals(sampleBoard1.getCell(new Pos(0, 3)), Cell.createLand(2));
+        assertEquals(sampleBoard1.getCell(new Pos(1, 3)), Cell.createLand(2));
+        assertEquals(sampleBoard1.getCell(new Pos(2, 3)), Cell.createLand(1));
+        assertEquals(sampleBoard1.getCell(new Pos(3, 3)), Cell.createLand(0));
     }
 
     @Test

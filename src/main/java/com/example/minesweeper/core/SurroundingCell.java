@@ -1,5 +1,7 @@
 package com.example.minesweeper.core;
 
+import com.example.minesweeper.core.cell.Cell;
+
 import java.util.ArrayList;
 
 public class SurroundingCell {
@@ -13,7 +15,7 @@ public class SurroundingCell {
     }
 
     public int getBombAmount() {
-        var bombCell = new Cell(new CellItem(-1));
+        var bombCell = Cell.createBomb();
         return (int) _array.stream()
                 .filter(c -> c != null)
                 .filter(c -> c.equals(bombCell))
