@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="HelloApplication" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="com.example.minesweeper.HelloApplication" />
+  <configuration default="false" name="MineSweeperApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="com.example.minesweeper.MineSweeperApplication" />
     <module name="MineSweeper.main" />
     <extension name="coverage">
       <pattern>

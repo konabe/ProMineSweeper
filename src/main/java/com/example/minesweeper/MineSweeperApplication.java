@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class MineSweeperApplication extends Application {
     private CellBoard board;
     private GridPane gridPane;
     private Button[][] buttons;
@@ -21,7 +21,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         board = new CellBoard(new MineSweeperConfig(30, 20, 50), new SimpleRandomBombMapper());
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MineSweeperApplication.class.getResource("minesweeper-view.fxml"));
         var node = (VBox)fxmlLoader.load();
         Scene scene = new Scene(node, 1200, 800);
         gridPane = new GridPane();
